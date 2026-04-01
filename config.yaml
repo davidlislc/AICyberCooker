@@ -1,0 +1,17 @@
+kafka:
+  bootstrap_servers: "localhost:9092"
+  consumer_group: "aiengine_group"
+  input_topic: "aiengine_in"
+  llm_topic: "llm_in"
+  poll_timeout_ms: 1000
+  max_poll_records: 10
+
+ml:
+  device: "auto"          # "auto" | "cpu" | "cuda"
+  anomaly_contamination: 0.05
+  batch_size: 32
+  sequence_max_length: 512
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
