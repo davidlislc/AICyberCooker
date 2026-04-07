@@ -153,3 +153,49 @@ python -m pytest tests/
 ```bash
 docker compose -f kafka/docker-compose.yml down
 ```
+
+Here is the updated workflow to ensure AICyberCooker runs on 3.11 without messing with your 3.12 setup.
+
+1. Ensure Python 3.11 and the Venv Module are Installed
+Even if Python 3.12 is your default, you must have the 3.11 binaries and the specific venv package installed. If you haven't done this yet:
+
+Bash
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install python3.11 python3.11-venv
+2. Clone and Enter the Project
+Bash
+git clone https://github.com/davidlislc/AICyberCooker.git
+cd AICyberCooker
+3. Create the 3.11 Virtual Environment
+This is the critical step. Instead of using python3, call the 3.11 binary directly to initialize the environment:
+
+Bash
+python3.11 -m venv venv311
+Note: I named it venv311 here just to make it easy to identify, but you can name it venv if you prefer.
+
+4. Activate the Environment
+Once activated, any python or pip command you run will stay locked to version 3.11.
+
+Bash
+source venv311/bin/activate
+Verification: Run python --version. It should now return Python 3.11.x, even though your system default is 3.12.
+
+5. Install AICyberCooker Dependencies
+Now that you are safely inside the 3.11 bubble, install the requirements:
+
+Bash
+pip install --upgrade pip
+pip install -r requirements.txt
+6. Deployment & Running
+Environment Variables: Create your .env file and add your API keys as required by the project.
+
+Bash
+cp .env.example .env
+nano .env
+Run the App: Based on the project structure for AICyberCooker:
+
+Bash
+python run.py 
+# OR if it's a streamlit app
+streamlit run app.py
